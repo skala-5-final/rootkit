@@ -1,0 +1,604 @@
+{
+  "exercises": [
+    {
+      "id": "practice-rewrite-sales-report",
+      "stage": 1,
+      "language": "ko",
+      "recipient_group": "general",
+      "situation": "동료에게 회의 준비용 영업 자료 요청",
+      "title": "[연습용] 영업 자료 요청 메일 다듬기",
+      "scenario": "가상회사 다온워크 운영팀 김하린의 입장에서 영업팀 이서준 매니저에게 보내는 메일을 다듬으세요. 아래 사실은 모두 연습용 가상자료입니다. 월간 회의 준비에 필요한 자료를 요청하며, 자료는 아직 받지 않았습니다. 초안에 빠진 전달 기한을 보완하고 정중하게 작성하세요.",
+      "requirements": [
+        "2026년 11월 6일 14:00 KST 월간 회의에서 10월 매출 현황을 검토할 목적으로 2026년 10월 영업 실적 자료 1부를 요청한다. 아직 받지 않은 자료를 받았다고 쓰지 않는다.",
+        "자료 전달 기한을 2026년 11월 6일 10:00 KST로 명시한다.",
+        "정중하게 자료를 요청하고, 기한 내 전달이 어렵다면 가능한 전달 시점을 알려 달라고 요청한다."
+      ],
+      "facts": [
+        {
+          "id": "sales-recipient",
+          "value": "영업팀 이서준 매니저",
+          "kind": "target",
+          "origin": "source",
+          "source_ids": [
+            "practice-sales-report"
+          ]
+        },
+        {
+          "id": "sales-meeting",
+          "value": "2026년 11월 6일 14:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-sales-report"
+          ]
+        },
+        {
+          "id": "sales-purpose",
+          "value": "10월 매출 현황을 검토",
+          "kind": "intent",
+          "origin": "source",
+          "source_ids": [
+            "practice-sales-report"
+          ]
+        },
+        {
+          "id": "sales-document",
+          "value": "2026년 10월 영업 실적 자료 1부",
+          "kind": "quantity",
+          "origin": "source",
+          "source_ids": [
+            "practice-sales-report"
+          ]
+        },
+        {
+          "id": "sales-deadline",
+          "value": "2026년 11월 6일 10:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-sales-report"
+          ]
+        },
+        {
+          "id": "sales-status",
+          "value": "아직 자료를 받지 못했습니다",
+          "kind": "status",
+          "origin": "source",
+          "source_ids": [
+            "practice-sales-report"
+          ]
+        }
+      ],
+      "original": "이서준 매니저님,\n\n2026년 11월 6일 14:00 KST 월간 회의에서 10월 매출 현황을 검토해야 합니다. 2026년 10월 영업 실적 자료 1부가 필요합니다. 자료 보내주세요. 아직 받지 못했습니다.\n\n김하린",
+      "subject": "10월 영업 실적 자료 요청",
+      "recipient": "가상회사 다온워크 영업팀 이서준 매니저",
+      "source_ids": [
+        "practice-sales-report"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "sales-request-facts",
+          "defect": "요청 자료의 기간·수량이나 회의 목적·일시를 빠뜨리거나 다르게 쓰고, 또는 자료를 이미 받았다고 쓴 경우",
+          "correction": "공개된 자료 기간과 수량, 회의 일시 및 목적을 반영하고 자료를 요청 중인 상태를 유지한다.",
+          "reference_text": "2026년 11월 6일 14:00 KST 월간 회의에서 10월 매출 현황을 검토하기 위해 2026년 10월 영업 실적 자료 1부를 요청드립니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "요청 자료, 회의 일시 또는 목적이 누락·변경되거나 수령 완료로 잘못 표현된 경우에만 적용한다. 의미가 같으면 표현 차이는 허용한다.",
+          "fact_ids": [
+            "sales-meeting",
+            "sales-purpose",
+            "sales-document",
+            "sales-status"
+          ],
+          "requirement_indexes": [
+            0
+          ],
+          "evidence_ids": [
+            "practice-sales-report"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "sales-delivery-deadline",
+          "defect": "자료 전달 기한이 없거나 날짜·시각·시간대가 다르게 작성된 경우",
+          "correction": "전달 기한을 2026년 11월 6일 10:00 KST로 명확하게 추가한다.",
+          "reference_text": "2026년 11월 6일 10:00 KST까지 보내주실 수 있을까요?",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "자료 전달 기한의 날짜, 시각 또는 시간대가 누락되거나 공개된 사실과 다른 경우에만 적용한다. 오전 10시와 10:00은 동일하게 인정한다.",
+          "fact_ids": [
+            "sales-deadline"
+          ],
+          "requirement_indexes": [
+            1
+          ],
+          "evidence_ids": [
+            "practice-sales-report"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "sales-polite-coordination",
+          "defect": "명령조로만 요청하거나 기한을 맞추기 어려울 때 가능한 전달 시점을 묻는 내용이 없는 경우",
+          "correction": "정중한 요청과 전달 일정 조율 문장을 덧붙인다.",
+          "reference_text": "기한 내 전달이 어려우시면 가능한 전달 시점을 알려주시면 감사하겠습니다.",
+          "category": "task",
+          "kind": "requirement",
+          "applies_when": "정중한 요청 또는 기한을 지키기 어려울 때의 일정 조율 요청이 누락된 경우에만 적용한다. 같은 뜻의 다른 정중한 문장은 인정한다.",
+          "fact_ids": [],
+          "requirement_indexes": [
+            2
+          ],
+          "evidence_ids": [
+            "practice-sales-report"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        }
+      ]
+    },
+    {
+      "id": "practice-rewrite-meeting-cancel",
+      "stage": 1,
+      "language": "ko",
+      "recipient_group": "general",
+      "situation": "동료에게 회의 취소와 일정 재조정 요청",
+      "title": "[연습용] 회의 취소와 재조정 알리기",
+      "scenario": "가상회사 다온워크 운영팀 김하린의 입장에서 마케팅팀 박도윤 매니저에게 보내는 메일을 다듬으세요. 아래 사실은 모두 연습용 가상자료입니다. 긴급 내부 점검으로 기존 회의를 취소했고 새 일정은 아직 정하지 않았습니다. 초안의 확정 표현을 고치고 가능한 일정을 정중하게 물어보세요.",
+      "requirements": [
+        "긴급한 내부 점검 업무로 2026년 11월 10일 11:00 KST 마케팅 회의를 취소한다는 사실과 사과를 전달한다.",
+        "2026년 11월 16일부터 11월 20일 사이로 재조정을 제안하고, 새 회의 일정은 미확정이며 회신 후 조율한다는 상태를 유지한다.",
+        "해당 기간에 가능한 날짜와 시간을 2026년 11월 12일 16:00 KST까지 정중하게 알려 달라고 요청한다."
+      ],
+      "facts": [
+        {
+          "id": "cancel-recipient",
+          "value": "마케팅팀 박도윤 매니저",
+          "kind": "target",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        },
+        {
+          "id": "cancel-reason",
+          "value": "긴급한 내부 점검 업무",
+          "kind": "intent",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        },
+        {
+          "id": "cancel-original-time",
+          "value": "2026년 11월 10일 11:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        },
+        {
+          "id": "cancel-meeting",
+          "value": "마케팅 회의를 취소",
+          "kind": "status",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        },
+        {
+          "id": "cancel-window",
+          "value": "2026년 11월 16일부터 11월 20일 사이",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        },
+        {
+          "id": "cancel-reply-deadline",
+          "value": "2026년 11월 12일 16:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        },
+        {
+          "id": "cancel-new-status",
+          "value": "새 회의 일정은 아직 확정되지 않았으며, 회신을 받은 뒤 조율하겠습니다",
+          "kind": "status",
+          "origin": "source",
+          "source_ids": [
+            "practice-team-meeting-cancel"
+          ]
+        }
+      ],
+      "original": "박도윤 매니저님,\n\n긴급한 내부 점검 업무로 2026년 11월 10일 11:00 KST 마케팅 회의를 취소합니다. 새 회의는 2026년 11월 16일 11:00 KST로 확정했습니다. 그때 참석해 주세요.\n\n김하린",
+      "subject": "마케팅 회의 취소 및 일정 재조정",
+      "recipient": "가상회사 다온워크 마케팅팀 박도윤 매니저",
+      "source_ids": [
+        "practice-team-meeting-cancel"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "cancel-notice-apology",
+          "defect": "기존 회의 취소 사실·사유·일시가 틀리거나 빠졌거나 취소에 대한 사과가 없는 경우",
+          "correction": "공개된 기존 회의 일시와 내부 점검 사유를 유지하여 취소를 알리고 사과한다.",
+          "reference_text": "긴급한 내부 점검 업무로 2026년 11월 10일 11:00 KST 마케팅 회의를 취소하게 되어 죄송합니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "취소 사실, 사유, 기존 일시 또는 사과가 누락·왜곡된 경우에만 적용한다. 같은 뜻의 사과는 인정한다.",
+          "fact_ids": [
+            "cancel-reason",
+            "cancel-original-time",
+            "cancel-meeting"
+          ],
+          "requirement_indexes": [
+            0
+          ],
+          "evidence_ids": [
+            "practice-team-meeting-cancel"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "cancel-unconfirmed-window",
+          "defect": "재조정 기간을 잘못 쓰거나 새 회의 날짜·시간이 이미 확정되었다고 표현한 경우",
+          "correction": "2026년 11월 16일부터 11월 20일 사이로 제안하고 회신 후 일정을 조율한다고 고친다.",
+          "reference_text": "2026년 11월 16일부터 11월 20일 사이로 다시 잡고자 하며, 회신을 받은 뒤 일정을 조율하겠습니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "재조정 가능 기간이 누락·변경되거나 미확정 상태가 확정 상태로 바뀐 경우에만 적용한다.",
+          "fact_ids": [
+            "cancel-window",
+            "cancel-new-status"
+          ],
+          "requirement_indexes": [
+            1
+          ],
+          "evidence_ids": [
+            "practice-team-meeting-cancel"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "cancel-request-availability",
+          "defect": "가능한 날짜·시간을 묻지 않거나 회신 기한이 틀리거나 빠진 경우",
+          "correction": "재조정 기간 내 가능한 날짜와 시간을 명시된 기한까지 정중하게 회신해 달라고 요청한다.",
+          "reference_text": "해당 기간에 가능하신 날짜와 시간을 2026년 11월 12일 16:00 KST까지 알려주실 수 있을까요?",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "가능한 날짜·시간에 대한 정중한 요청 또는 회신 기한의 날짜·시각·시간대가 누락·왜곡된 경우에만 적용한다.",
+          "fact_ids": [
+            "cancel-reply-deadline"
+          ],
+          "requirement_indexes": [
+            2
+          ],
+          "evidence_ids": [
+            "practice-team-meeting-cancel"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        }
+      ]
+    },
+    {
+      "id": "practice-write-client-reschedule",
+      "stage": 2,
+      "language": "ko",
+      "recipient_group": "customer",
+      "situation": "고객에게 미팅 일정 변경 제안",
+      "title": "[연습용] 고객에게 새 미팅 일정 제안하기",
+      "scenario": "가상회사 다온워크 프로젝트 운영팀 김하린입니다. 가상 고객사 모아클라우드 정유나 담당자에게 신규 서비스 도입 일정 논의를 위한 미팅 시간을 바꾸자고 제안하는 이메일을 작성하세요. 아래 사실은 모두 연습용 가상자료입니다. 내부 일정 변경이 사유이고, 고객의 확인 전에는 새 일정이 확정되지 않습니다.",
+      "requirements": [
+        "내부 일정 변경으로 미팅 시간을 조정하려는 목적과 불편에 대한 사과를 전달한다.",
+        "논의 주제는 신규 서비스 도입 일정 논의로 유지하고, 기존 2026년 11월 4일 14:00 KST에서 2026년 11월 5일 15:00 KST로 변경을 제안한다. 고객의 확인 전에는 새 일정이 미확정임을 유지한다.",
+        "2026년 11월 2일 17:00 KST까지 제안 일정 참석 가능 여부를 회신해 달라고 요청하고, 참석이 어려우면 가능한 다른 시간을 물어본다."
+      ],
+      "facts": [
+        {
+          "id": "client-recipient",
+          "value": "모아클라우드 정유나 담당자",
+          "kind": "target",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        },
+        {
+          "id": "client-reason",
+          "value": "내부 일정이 변경",
+          "kind": "intent",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        },
+        {
+          "id": "client-topic",
+          "value": "신규 서비스 도입 일정 논의",
+          "kind": "intent",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        },
+        {
+          "id": "client-old-time",
+          "value": "2026년 11월 4일 14:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        },
+        {
+          "id": "client-new-time",
+          "value": "2026년 11월 5일 15:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        },
+        {
+          "id": "client-reply-deadline",
+          "value": "2026년 11월 2일 17:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        },
+        {
+          "id": "client-proposed-status",
+          "value": "새로운 일정은 제안 단계이며, 고객님의 확인을 받은 뒤 확정할 예정입니다",
+          "kind": "status",
+          "origin": "source",
+          "source_ids": [
+            "practice-client-reschedule"
+          ]
+        }
+      ],
+      "original": null,
+      "subject": "신규 서비스 도입 미팅 일정 변경 제안",
+      "recipient": "가상 고객사 모아클라우드 정유나 담당자",
+      "source_ids": [
+        "practice-client-reschedule"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "client-reason-apology",
+          "defect": "내부 일정 변경이라는 사유나 미팅 조정 목적 또는 불편에 대한 사과가 빠지거나 다른 사유로 바뀐 경우",
+          "correction": "내부 일정 변경으로 시간을 조정하려고 한다는 뜻과 불편에 대한 사과를 전달한다.",
+          "reference_text": "내부 일정 변경으로 미팅 시간을 조정하고자 합니다. 불편을 드려 죄송합니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "일정 변경 사유·목적 또는 사과가 누락·왜곡된 경우에만 적용한다. 같은 뜻의 자연스러운 표현은 인정한다.",
+          "fact_ids": [
+            "client-reason"
+          ],
+          "requirement_indexes": [
+            0
+          ],
+          "evidence_ids": [
+            "practice-client-reschedule"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "client-schedule-proposal",
+          "defect": "미팅 주제나 기존·제안 일정이 틀리거나 빠졌거나 새 일정이 확정되었다고 표현한 경우",
+          "correction": "주제를 유지하고 기존 일정과 제안 일정을 시간대와 함께 제시하며 고객 확인 후 확정한다고 표현한다.",
+          "reference_text": "신규 서비스 도입 일정 논의 미팅을 2026년 11월 4일 14:00 KST에서 2026년 11월 5일 15:00 KST로 옮길 것을 제안드리며, 확인 후 확정하겠습니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "주제, 기존·제안 날짜·시각·시간대 또는 미확정 상태가 누락·왜곡된 경우에만 적용한다. KST와 한국 표준시는 동일하게 인정한다.",
+          "fact_ids": [
+            "client-topic",
+            "client-old-time",
+            "client-new-time",
+            "client-proposed-status"
+          ],
+          "requirement_indexes": [
+            1
+          ],
+          "evidence_ids": [
+            "practice-client-reschedule"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "client-reply-request",
+          "defect": "참석 가능 여부 회신 요청이나 회신 기한이 빠졌거나 틀리고, 또는 불가능할 때 다른 시간을 묻지 않은 경우",
+          "correction": "명시된 기한까지 참석 가능 여부를 회신해 달라고 요청하고 불가능할 때의 대체 시간을 묻는다.",
+          "reference_text": "2026년 11월 2일 17:00 KST까지 참석 가능 여부를 알려주시고, 어려우시면 가능한 다른 시간을 회신 부탁드립니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "회신 요청, 정확한 회신 기한 또는 불가능할 때의 대체 시간 요청이 누락·왜곡된 경우에만 적용한다.",
+          "fact_ids": [
+            "client-reply-deadline"
+          ],
+          "requirement_indexes": [
+            2
+          ],
+          "evidence_ids": [
+            "practice-client-reschedule"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        }
+      ]
+    },
+    {
+      "id": "practice-write-new-hire-welcome",
+      "stage": 2,
+      "language": "ko",
+      "recipient_group": "general",
+      "situation": "신규 입사자에게 환영 인사와 첫 출근 정보 안내",
+      "title": "[연습용] 새 팀원에게 첫 출근 안내하기",
+      "scenario": "가상회사 다온워크 인사팀 한지우의 입장에서 신규 입사자 최민아 님에게 첫 출근을 안내하는 이메일을 작성하세요. 아래 사실은 모두 연습용 가상자료입니다. 첫 출근 일시와 장소는 이미 확정되었습니다. 안내자는 인사팀 한지우이며 문의는 이 이메일로 받습니다.",
+      "requirements": [
+        "신규 입사자 최민아 님에게 팀 합류를 환영하는 인사를 전한다.",
+        "확정된 첫 출근 일시 2026년 11월 9일 09:00 KST와 장소 다온워크 본사 3층 로비를 안내한다.",
+        "본인 확인을 위한 신분증 원본 1개 지참을 안내하고, 당일 인사팀 한지우가 안내하며 사전 문의는 이 메일로 할 수 있다고 전한다."
+      ],
+      "facts": [
+        {
+          "id": "welcome-recipient",
+          "value": "최민아 님",
+          "kind": "target",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-date",
+          "value": "2026년 11월 9일 09:00 KST",
+          "kind": "date",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-place",
+          "value": "다온워크 본사 3층 로비",
+          "kind": "target",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-status",
+          "value": "해당 일정과 장소는 확정되었습니다",
+          "kind": "status",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-id",
+          "value": "신분증 원본 1개",
+          "kind": "quantity",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-id-purpose",
+          "value": "본인 확인",
+          "kind": "intent",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-guide",
+          "value": "인사팀 한지우",
+          "kind": "target",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        },
+        {
+          "id": "welcome-contact",
+          "value": "이 메일로 편하게 문의",
+          "kind": "other",
+          "origin": "source",
+          "source_ids": [
+            "practice-new-hire-welcome"
+          ]
+        }
+      ],
+      "original": null,
+      "subject": "입사를 환영합니다 — 11월 9일 첫 출근 안내",
+      "recipient": "가상회사 다온워크 신규 입사자 최민아 님",
+      "source_ids": [
+        "practice-new-hire-welcome"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "welcome-greeting",
+          "defect": "수신자를 다른 사람으로 쓰거나 팀 합류에 대한 환영 인사가 없는 경우",
+          "correction": "최민아 님에게 보내는 메일임을 유지하고 팀에 합류하게 된 것을 환영한다.",
+          "reference_text": "최민아 님, 다온워크에 합류하시게 된 것을 환영합니다.",
+          "category": "task",
+          "kind": "requirement",
+          "applies_when": "수신자가 잘못되거나 합류 환영 인사가 누락된 경우에만 적용한다. 환영의 의미가 같으면 표현 차이는 허용한다.",
+          "fact_ids": [
+            "welcome-recipient"
+          ],
+          "requirement_indexes": [
+            0
+          ],
+          "evidence_ids": [
+            "practice-new-hire-welcome"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "welcome-arrival",
+          "defect": "첫 출근 날짜·시각·시간대·장소가 빠지거나 다르거나 확정 일정을 미확정으로 표현한 경우",
+          "correction": "확정된 첫 출근 날짜와 시각, 시간대 및 집합 장소를 정확히 안내한다.",
+          "reference_text": "첫 출근은 2026년 11월 9일 09:00 KST이며, 다온워크 본사 3층 로비로 오시면 됩니다.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "첫 출근 일시·장소가 누락·왜곡되거나 미확정이라고 잘못 표현된 경우에만 적용한다. 확정이라는 단어를 쓰지 않아도 확정된 안내 의미이면 인정한다.",
+          "fact_ids": [
+            "welcome-date",
+            "welcome-place",
+            "welcome-status"
+          ],
+          "requirement_indexes": [
+            1
+          ],
+          "evidence_ids": [
+            "practice-new-hire-welcome"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        },
+        {
+          "criterion_id": "welcome-preparation-contact",
+          "defect": "신분증 원본 1개 지참 안내, 본인 확인 목적, 안내자 또는 이메일 문의 경로가 빠지거나 잘못된 경우",
+          "correction": "본인 확인을 위한 신분증 원본 1개를 준비하도록 안내하고 당일 안내자와 사전 문의 경로를 전달한다.",
+          "reference_text": "본인 확인을 위해 신분증 원본 1개를 지참해 주세요. 당일 인사팀 한지우가 안내하며, 궁금한 사항은 이 메일로 문의해 주세요.",
+          "category": "task",
+          "kind": "fact",
+          "applies_when": "준비물·수량·본인 확인 목적·안내자·이메일 문의 경로 중 요구한 정보가 누락·왜곡된 경우에만 적용한다. 같은 의미의 안내는 인정한다.",
+          "fact_ids": [
+            "welcome-id",
+            "welcome-id-purpose",
+            "welcome-guide",
+            "welcome-contact"
+          ],
+          "requirement_indexes": [
+            2
+          ],
+          "evidence_ids": [
+            "practice-new-hire-welcome"
+          ],
+          "term_id": null,
+          "pattern_id": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Install: python -m pip install -r requirements.txt
+fastapi>=0.115,<1.0  # Internal HTTP API
+pydantic>=2.10,<3.0  # Strict input and model response validation
+uvicorn>=0.34,<1.0   # ASGI server

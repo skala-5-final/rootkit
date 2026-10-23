@@ -38,7 +38,7 @@ services:
     # 컨테이너 내부 주소는 .env(로컬 개발용) 값을 덮어쓴다
     environment:
       DATABASE_URL: postgres://rootkit:rootkit@db:5432/rootkit
-      AI_API_BASE_URL: http://host.docker.internal:8000/api/v1
+      AI_API_BASE_URL: http://ai:8000/api/v1
     ports:
       - "3000:3000"
     depends_on:
@@ -46,5 +46,21 @@ services:
         condition: service_completed_successfully
     restart: unless-stopped
 
+  ai:
+    build:
+      context: ./ai
+    env_file:
+      - path: ./web/.env
+      - path: ./ai/.env
+        required: false
+    environment:
+      AI_DB_PATH: /data/rootkit.sqlite3
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ai-data:/data
+    restart: unless-stopped
+
 volumes:
   pgdata:
+  ai-data:
