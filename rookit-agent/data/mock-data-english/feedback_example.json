@@ -1,0 +1,51 @@
+{
+  "challenge_id": "en_001_compose",
+  "evaluation_case_id": "eval_en_001_compose_flawed",
+  "complete": false,
+  "scores": {
+    "content": 30,
+    "tone": 25,
+    "structure": 18,
+    "language": 15,
+    "total": 88
+  },
+  "requirement_checks": [
+    {
+      "requirement_id": "en_001_compose_r1",
+      "met": true,
+      "evidence": "the Q3 sales report"
+    },
+    {
+      "requirement_id": "en_001_compose_r2",
+      "met": true,
+      "evidence": "for our planning meeting"
+    },
+    {
+      "requirement_id": "en_001_compose_r3",
+      "met": false,
+      "evidence": null
+    },
+    {
+      "requirement_id": "en_001_compose_r4",
+      "met": true,
+      "evidence": "Let me know if there is any difficulty."
+    }
+  ],
+  "strengths": [
+    "The request is courteous and explains its purpose."
+  ],
+  "issues": [
+    {
+      "category": "content",
+      "severity": "critical",
+      "requirement_id": "en_001_compose_r3",
+      "learner_excerpt": null,
+      "explanation": "The recipient cannot tell when the report is needed.",
+      "revision_hint": "Add October 30, 2026, at 3:00 p.m. KST to your request."
+    }
+  ],
+  "reference_ids": [
+    "ref_en_001"
+  ],
+  "note": "Illustrative mock output, not an actual model evaluation. A high total does not override a missing critical requirement."
+}

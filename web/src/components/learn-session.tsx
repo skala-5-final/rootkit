@@ -16,9 +16,28 @@ function shuffled(length: number) {
   return order;
 }
 
-export default function LearnSession({ stage, config, userName, store, persist, storageOk }: Props) {
+export default function LearnSession(props: Props) {
+  const [data, setData] = useState<{ exercises: Exercise[]; mode: 'live' | 'replay' } | null>(null);
+  const [error, setError] = useState('');
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    if (props.stage === 0) return;
+    const controller = new AbortController();
+    fetch('/api/agent/challenges', { signal: controller.signal }).then(async response => {
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '문제를 불러오지 못했습니다.');
+      if (!result.exercises.some((e: Exercise) => e.stage === props.stage)) throw new Error('이 단계의 문제가 없습니다.');
+      setData(result);
+    }).catch(error => { if (!controller.signal.aborted) setError(error.message); });
+    return () => controller.abort();
+  }, [props.stage, retry]);
+  if (props.stage === 0) return <Session {...props} pool={exercisePool[0]} />;
+  if (!data) return <main className="content-width"><p role={error ? 'alert' : 'status'}>{error || '에이전트의 학습 문제를 불러오고 있어요…'}</p>{error && <button className="button secondary" onClick={() => { setError(''); setRetry(retry + 1); }}>다시 연결</button>} <Link href="/kits">학습 키트로</Link></main>;
+  return <><p className="content-width" role="status">{data.mode === 'replay' ? 'Replay 모드 · 등록된 예시 답안만 채점할 수 있습니다. 자유 작문에는 live 모드가 필요합니다.' : 'AI 채점 · 답안과 최근 수정 기록이 모델 제공자에게 전송됩니다.'}</p><Session {...props} pool={data.exercises.filter(e => e.stage === props.stage)} /></>;
+}
+
+function Session({ stage, config, userName, store, persist, storageOk, pool }: Props & { pool: Exercise[] }) {
   const router = useRouter();
-  const pool = exercisePool[stage];
   const [order, setOrder] = useState(() => shuffled(pool.length));
   const [index, setIndex] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
@@ -100,7 +119,7 @@ function QuestionView({ exercise, number, isLast, config, userName, store, persi
     setPending(true); setNotice(''); setEvaluation(null);
     try {
       const answer = { ...draft, body: filledBody };
-      const response = await fetch('/api/demo/evaluations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ exerciseId: exercise.id, blankMode: config.blankMode, answer }), signal: AbortSignal.timeout(15000) });
+      const response = await fetch(stage === 0 ? '/api/demo/evaluations' : '/api/agent/evaluations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ exerciseId: exercise.id, blankMode: config.blankMode, answer }), signal: AbortSignal.timeout(stage === 0 ? 15000 : 120000) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '채점 요청에 실패했습니다.');
       const result = data as Evaluation;
@@ -125,7 +144,7 @@ function QuestionView({ exercise, number, isLast, config, userName, store, persi
             : <textarea aria-label="이메일 본문" required maxLength={10000} value={draft.body} onChange={e => edit({ ...draft, body: e.target.value })} placeholder={`${exercise.recipient.startsWith('Jamie') || exercise.recipient.startsWith('Mina') ? 'Dear' : 'Hi'} ${exercise.recipient.split(' ')[0]},\n\n첫 문장을 적어보세요. 완벽하지 않아도 괜찮아요.\n\nBest regards,\n${userName}`} />}
           <div className="editor-status"><span>{storageOk ? '✓ 이 브라우저에 자동 저장' : '브라우저 저장 불가 · 현재 화면에서만 유지'}</span><span>{stage === 0 ? `${draft.blanks.filter(x => x.trim()).length} / ${draft.blanks.length} 완료` : `${words} words`}</span></div>
         </div>
-        {evaluation && <div ref={resultRef} className="feedback-panel" role="status"><div className="feedback-heading"><div><span className="eyebrow">YOUR FEEDBACK</span><h3>{evaluation.total === 100 ? `완벽해요, ${userName}님!` : evaluation.total >= 70 ? '좋아요, 조금만 더!' : '한 번 더 다듬어 볼까요?'}</h3></div><div className="score-number">{evaluation.total}<small>/ 100</small></div></div><p>{evaluation.summary}</p><div className="score-grid">{evaluation.scores.map(s => <div key={s.label}><span>{s.label}</span><b>{s.score}<small> / {s.max}</small></b><progress max={s.max} value={s.score} aria-label={s.label} /><p>{s.comment}</p></div>)}</div><ul className="feedback-checks">{evaluation.checks.map(c => <li key={c.label} className={c.passed ? 'passed' : ''}><span>{c.passed ? '✓' : '○'}</span>{c.label}</li>)}</ul>{evaluation.feedback.map(x => <p className="feedback-tip" key={x}>{x}</p>)}<small className="demo-disclaimer">데모 규칙으로 계산한 점수입니다. 실제 AI 채점은 연결되지 않았습니다.</small></div>}
+        {evaluation && <div ref={resultRef} className="feedback-panel" role="status"><div className="feedback-heading"><div><span className="eyebrow">YOUR FEEDBACK</span><h3>{evaluation.complete === false ? '필수 요구사항을 더 확인해 주세요' : evaluation.total === 100 ? `완벽해요, ${userName}님!` : evaluation.total >= 70 ? '좋아요, 조금만 더!' : '한 번 더 다듬어 볼까요?'}</h3></div><div className="score-number">{evaluation.total}<small>/ 100</small></div></div><p>{evaluation.summary}</p><div className="score-grid">{evaluation.scores.map(s => <div key={s.label}><span>{s.label}</span><b>{s.score}<small> / {s.max}</small></b><progress max={s.max} value={s.score} aria-label={s.label} /><p>{s.comment}</p></div>)}</div><ul className="feedback-checks">{evaluation.checks.map(c => <li key={c.label} className={c.passed ? 'passed' : ''}><span>{c.passed ? '✓' : '○'}</span>{c.label}</li>)}</ul>{evaluation.feedback.map(x => <p className="feedback-tip" key={x}>{x}</p>)}<small className="demo-disclaimer">{evaluation.mode === 'live' ? 'AI가 평가한 피드백입니다. 점수와 필수 요구사항 충족 여부를 함께 확인하세요.' : evaluation.mode === 'replay' ? 'Replay 예시 결과입니다. 실제 AI 채점이 아닙니다.' : '빈칸 정답 규칙으로 계산한 점수입니다.'}</small></div>}
         <div className="editor-actions">
           <button type="button" className="button secondary hint-toggle" aria-expanded={hint} onClick={() => setHint(!hint)}>✧ &nbsp; 표현 힌트</button>
           {evaluation ? <div className="action-group"><button type="button" className="button secondary" onClick={() => { setEvaluation(null); if (stage !== 0) document.getElementById('subject')?.focus(); }}>다시 풀기</button><button type="button" className="button primary" onClick={() => onNext(evaluation.total)}>{isLast ? '결과 보기 →' : '다음 문제 →'}</button></div>

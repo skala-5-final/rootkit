@@ -3,7 +3,7 @@ export type BlankMode = 'choice' | 'input';
 export type SessionConfig = { count: number | 'infinite'; blankMode: BlankMode };
 export type Draft = { subject: string; body: string; blanks: string[] };
 export type Score = { label: string; score: number; max: number; comment: string };
-export type Evaluation = { total: number; summary: string; scores: Score[]; feedback: string[]; checks: { label: string; passed: boolean }[]; mode: 'demo' };
+export type Evaluation = { total: number; summary: string; scores: Score[]; feedback: string[]; checks: { label: string; passed: boolean }[]; mode: 'demo' | 'replay' | 'live'; complete?: boolean };
 export type Submission = { id: string; stage: Stage; exerciseId?: string; title?: string; draft: Draft; evaluation: Evaluation; createdAt: string };
 
 // 빈칸 정답은 서버(demo-evaluation.ts)에만 둔다.

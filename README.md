@@ -12,7 +12,7 @@ prototype/            UI 프로토타입(정적 HTML, git 제외)
 web/                  Next.js 앱 (App Router, TS, Tailwind, Drizzle ORM)
   src/db/schema.ts    DB 스키마 (users / exercises / submissions)
   drizzle/            생성된 SQL 마이그레이션
-docker-compose.yml    db(Postgres 17) + migrate + web
+docker-compose.yml    db(Postgres 17) + migrate + web + agent
 ```
 
 ## Docker로 전부 띄우기
@@ -54,3 +54,10 @@ pnpm db:generate   # drizzle/ 에 SQL 생성 (커밋 대상)
 pnpm db:migrate
 pnpm db:studio     # DB 브라우저
 ```
+
+## Writing-coach integration
+
+Stages 1 and 2 load exercises and grading from `rookit-agent`; stage 0 uses local
+blank-answer rules. Docker starts the agent on http://localhost:8000/docs in replay
+mode. Replay accepts only exact fixture answers, not arbitrary writing. See
+[agent setup](rookit-agent/README.md#run-with-the-web-app) for live-mode configuration.
