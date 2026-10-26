@@ -7,10 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:rag": "node --test scripts/test-rag.cjs",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "node scripts/seed.ts"
+    "db:seed": "node scripts/seed.ts",
+    "test:agent": "node --experimental-strip-types --test scripts/agent.test.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.4",
@@ -18,7 +20,8 @@
     "next": "16.4.2",
     "postgres": "^3.4.9",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
@@ -31,5 +34,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@11.13.0"
+  "packageManager": "pnpm@11.15.1"
 }

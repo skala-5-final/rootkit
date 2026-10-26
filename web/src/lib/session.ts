@@ -25,3 +25,16 @@ export function cookieOptions(request: Request) {
   const https = new URL(request.url).protocol === 'https:' || request.headers.get('x-forwarded-proto') === 'https';
   return { httpOnly: true, sameSite: 'lax' as const, secure: https, path: '/', maxAge: sessionMaxAge };
 }
+
+export const agentCookie = 'rootkit_agent';
+export function signAgentToken(token: string, userId: string) {
+  return new SignJWT({ token }).setProtectedHeader({ alg: 'HS256' }).setSubject(userId)
+    .setAudience('rookit-agent').setIssuedAt().setExpirationTime(`${sessionMaxAge}s`).sign(secret());
+}
+export async function readAgentToken(value: string | undefined, userId: string): Promise<string | null> {
+  if (!value) return null;
+  try {
+    const { payload } = await jwtVerify(value, secret(), { algorithms: ['HS256'], audience: 'rookit-agent' });
+    return payload.sub === userId && typeof payload.token === 'string' ? payload.token : null;
+  } catch { return null; }
+}

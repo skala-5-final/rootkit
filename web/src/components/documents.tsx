@@ -66,7 +66,7 @@ export default function Documents({ userId }: { userId: string }) {
   return <main className="documents content-width">
     <div className="breadcrumb"><Link href="/kits">워크스페이스</Link> &nbsp; / &nbsp; 사내 자료 관리</div>
     <div className="dashboard-heading">
-      <div><span className="eyebrow">KNOWLEDGE BASE</span><h1>사내 온보딩 자료</h1><p>문제 생성과 피드백에 참고할 사내 문서를 올리고 관리해요.</p></div>
+      <div><span className="eyebrow">KNOWLEDGE BASE</span><h1>사내 온보딩 자료</h1><p>이 화면은 파일 목록을 관리하는 데모입니다. 실제 학습에는 별도로 등록·검토한 회사 자료를 사용합니다.</p></div>
       <button type="button" className="button primary" onClick={() => inputRef.current?.click()}>＋ 자료 올리기</button>
     </div>
 
@@ -78,14 +78,14 @@ export default function Documents({ userId }: { userId: string }) {
     </label>
     {notice && <div className="error-note doc-notice" role="alert">{notice}</div>}
 
-    <div className="section-heading"><h2>등록된 자료 <span>{docs.length}</span></h2><small>학습 반영 완료 {readyCount}건</small></div>
+    <div className="section-heading"><h2>등록된 자료 <span>{docs.length}</span></h2><small>데모 목록 등록 {readyCount}건</small></div>
     {docs.length === 0 ? <div className="empty-state"><span>▤</span><h2>아직 등록된 자료가 없어요.</h2><p>첫 사내 문서를 올려 보세요.</p></div>
       : <ul className="doc-list">{docs.map(doc => <li key={doc.id} className="doc-item">
         <span className={`doc-icon ext-${extension(doc.name)}`} aria-hidden="true">{extension(doc.name).toUpperCase()}</span>
         <div className="doc-main"><strong>{doc.name}</strong><span>{doc.category} · {formatSize(doc.size)} · {new Date(doc.uploadedAt).toLocaleDateString('ko-KR')}</span></div>
-        <span className={`doc-status ${doc.status}`}>{doc.status === 'ready' ? '학습 반영 완료' : '처리 중…'}</span>
+        <span className={`doc-status ${doc.status}`}>{doc.status === 'ready' ? '데모 목록 등록' : '처리 중…'}</span>
         <button type="button" className="doc-delete" aria-label={`${doc.name} 삭제`} onClick={() => remove(doc.id)}>✕</button>
       </li>)}</ul>}
-    <footer className="demo-note"><span>ⓘ 데모 화면 · 파일은 서버로 전송되지 않고 목록만 이 브라우저에 저장됩니다. 실제 문서 반영(RAG)은 AI 서버 연동 후 제공됩니다.</span></footer>
+    <footer className="demo-note"><span>ⓘ 데모 화면 · 파일은 서버로 전송되지 않고 목록만 이 브라우저에 저장됩니다. STEP 1·2 학습에는 담당자가 별도로 등록하고 검토한 데이터셋을 사용합니다.</span></footer>
   </main>;
 }

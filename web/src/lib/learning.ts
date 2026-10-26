@@ -1,9 +1,12 @@
 export type Stage = 0 | 1 | 2;
+// STEP 1·2의 학습 언어: 한국어는 ai(RAG) 서비스, 영어는 rookit-agent를 사용한다.
+export type Lang = 'ko' | 'en';
+export const langNames: Record<Lang, string> = { ko: '한국어', en: 'English' };
 export type BlankMode = 'choice' | 'input';
 export type SessionConfig = { count: number | 'infinite'; blankMode: BlankMode };
 export type Draft = { subject: string; body: string; blanks: string[] };
 export type Score = { label: string; score: number; max: number; comment: string };
-export type Evaluation = { total: number; summary: string; scores: Score[]; feedback: string[]; checks: { label: string; passed: boolean }[]; mode: 'demo' };
+export type Evaluation = { total: number; summary: string; scores: Score[]; feedback: string[]; checks: { label: string; passed: boolean }[]; mode: 'demo' | 'replay' | 'live'; complete?: boolean };
 export type Submission = { id: string; stage: Stage; exerciseId?: string; title?: string; draft: Draft; evaluation: Evaluation; createdAt: string };
 
 // 빈칸 정답은 서버(demo-evaluation.ts)에만 둔다.
@@ -146,6 +149,7 @@ export function blankBody(exercise: Exercise, values: string[]) {
   return (exercise.blanks || []).map((blank, i) => blank.before + (values[i] || `[빈칸 ${i + 1}]`) + blank.after).join('');
 }
 export function isStage(value: unknown): value is Stage { return value === 0 || value === 1 || value === 2; }
+export function isLang(value: unknown): value is Lang { return value === 'ko' || value === 'en'; }
 export function estimateMinutes(stage: Stage, config: SessionConfig) {
   if (config.count === 'infinite') return null;
   const perItem = stage === 0 && config.blankMode === 'input' ? 2 : stageMeta[stage].minutes;
