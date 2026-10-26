@@ -1,0 +1,164 @@
+[
+  {
+    "id": "ref_en_001",
+    "language": "en",
+    "scenario_type": "report_request",
+    "title": "Request a sales report guidance",
+    "text": "Make a specific request, explain its purpose, and state an explicit deadline with a time zone. A polite question is one option; a clear, courteous direct request can also work.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_002",
+    "language": "en",
+    "scenario_type": "reschedule",
+    "title": "Reschedule a client meeting guidance",
+    "text": "Distinguish the original appointment from the proposed replacement. Preserve the exact date, time, and time zone. A proposed time is not confirmed until the recipient accepts.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_003",
+    "language": "en",
+    "scenario_type": "follow_up",
+    "title": "Follow up on a proposal guidance",
+    "text": "Identify the earlier message and ask for a specific next step without assuming the recipient has ignored you. Offer help and state a deadline when the scenario requires one.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_004",
+    "language": "en",
+    "scenario_type": "delay_notice",
+    "title": "Explain a delivery delay guidance",
+    "text": "State the impact, give the known reason without blame, acknowledge the inconvenience, and provide a revised commitment and next update. Do not invent compensation or unsupported promises.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_005",
+    "language": "en",
+    "scenario_type": "clarification",
+    "title": "Clarify an ambiguous request guidance",
+    "text": "Ask focused questions about unresolved details. Explain why the clarification is needed and avoid silently choosing a reporting period or scope.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_006",
+    "language": "en",
+    "scenario_type": "decline",
+    "title": "Decline a request and offer an alternative guidance",
+    "text": "State the boundary clearly and briefly explain the constraint. Offer only the support actually available and invite the recipient to respond. Excessive apologies are not required.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_review_request",
+    "language": "en",
+    "scenario_type": "review_request",
+    "title": "Review Request guidance",
+    "text": "Identify the document, focus the review, give a deadline and explain how to return comments.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_meeting_invitation",
+    "language": "en",
+    "scenario_type": "meeting_invitation",
+    "title": "Meeting Invitation guidance",
+    "text": "Explain the purpose, give the meeting time and location, and ask for attendance confirmation.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_status_update",
+    "language": "en",
+    "scenario_type": "status_update",
+    "title": "Status Update guidance",
+    "text": "Distinguish completed work, remaining work and the next update without implying the project is finished.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_deadline_extension",
+    "language": "en",
+    "scenario_type": "deadline_extension",
+    "title": "Deadline Extension guidance",
+    "text": "Acknowledge the original commitment, explain the constraint, propose a new date and ask for agreement.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_handover",
+    "language": "en",
+    "scenario_type": "handover",
+    "title": "Handover guidance",
+    "text": "State the coverage period, where instructions are kept, the expected action and the escalation contact.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_access_request",
+    "language": "en",
+    "scenario_type": "access_request",
+    "title": "Access Request guidance",
+    "text": "Ask for the minimum required permission, explain its business use and state when it is needed.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_invoice_clarification",
+    "language": "en",
+    "scenario_type": "invoice_clarification",
+    "title": "Invoice Clarification guidance",
+    "text": "Identify the invoice and discrepancy precisely. Ask for clarification without assuming misconduct or promising payment.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_training_invitation",
+    "language": "en",
+    "scenario_type": "training_invitation",
+    "title": "Training Invitation guidance",
+    "text": "State the topic, schedule, attendance location and required preparation. Ask for registration.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_incident_update",
+    "language": "en",
+    "scenario_type": "incident_update",
+    "title": "Incident Update guidance",
+    "text": "Separate observed impact from investigation status, provide a workaround and commit to an update, not an unsupported recovery time.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_delivery_confirmation",
+    "language": "en",
+    "scenario_type": "delivery_confirmation",
+    "title": "Delivery Confirmation guidance",
+    "text": "Confirm the item and quantity, state the delivery location, identify the receiving contact and ask for confirmation.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_feedback_request",
+    "language": "en",
+    "scenario_type": "feedback_request",
+    "title": "Feedback Request guidance",
+    "text": "Name the activity, ask focused questions, explain how to respond and provide a deadline.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  },
+  {
+    "id": "ref_en_approval_request",
+    "language": "en",
+    "scenario_type": "approval_request",
+    "title": "Approval Request guidance",
+    "text": "Explain the proposal, state the spending ceiling, clarify that work is awaiting approval and request an explicit decision.",
+    "source": "Original AI-generated fictional teaching guidance",
+    "review_status": "not_human_reviewed"
+  }
+]

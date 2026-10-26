@@ -67,3 +67,11 @@ docker-compose.override.yml
 
 # Prototype (로컬 참고용, 커밋하지 않음)
 prototype/
+ai/Rookit_Korean_Raw_300
+
+# 루트 작업 문서·발표자료 (README.md 제외)
+/*.md
+!/README.md
+/*.pdf
+
+ai/Rookit_Korean_Raw_300

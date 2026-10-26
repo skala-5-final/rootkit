@@ -16,7 +16,8 @@ ai/                   FastAPI, JSONL 반입·생성·검토 CLI, SQLite 저장
   app/                문서·용어·문제집·시도·피드백 처리
   fixtures/           가상의 테스트 데이터셋 A/B
   tests/              모의 모델 응답을 사용하는 통합 테스트
-docker-compose.yml    db(Postgres 17) + migrate + web + ai
+rookit-agent/         영어 학습 에이전트(FastAPI), 영어 문제·평가 사례 데이터
+docker-compose.yml    db(Postgres 17) + migrate + web + ai + agent
 ```
 
 ## Docker로 전부 띄우기
@@ -98,3 +99,10 @@ pnpm db:generate   # drizzle/ 에 SQL 생성 (커밋 대상)
 pnpm db:migrate
 pnpm db:studio     # DB 브라우저
 ```
+
+## 학습 언어 선택 (한국어 · 영어)
+
+학습 키트 화면 상단에서 언어를 고른다. 선택은 이 브라우저에 저장된다. STEP 0은 언어와 관계없이 기존 데모를 사용한다.
+
+- 한국어: STEP 1·2가 `ai` 서비스(RAG, 검토를 통과한 활성 문제집)를 사용한다. 기록은 서버에 저장된다.
+- 영어: STEP 1·2가 `rookit-agent`를 사용한다. Docker는 에이전트를 http://localhost:8001/docs 에 replay 모드로 띄운다. Replay는 등록된 예시 답안만 채점하며, 자유 작문 채점은 [에이전트 설정](rookit-agent/README.md#run-with-the-web-app)의 live 모드가 필요하다. 영어 제출 기록은 이 브라우저에 저장된다.
